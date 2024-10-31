@@ -1,4 +1,3 @@
-import socket
 from httptools import HttpRequestParser
 
 class RequestHandler:
