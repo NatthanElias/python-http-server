@@ -1,4 +1,4 @@
-from File import File
+from server.models.file import File
 
 file = File('doc1', 'asdansodnas', 'text/type')
 
