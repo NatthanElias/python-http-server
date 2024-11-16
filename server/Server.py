@@ -143,10 +143,9 @@
 #                 client_socket, address = sock.accept()
 #                 self.handle_request(client_socket)
 
-# server/server.py
-
 import socket
-from server.controllers.request_handler import handle_request
+import threading
+from server.routes import route_request
 
 class Server:
     def __init__(self, host, port, data_payload=2048):
@@ -177,5 +176,20 @@ class Server:
 
             while True:
                 client_socket, address = sock.accept()
-                # Trata a requisição usando o request handler
-                handle_request(client_socket, self.data_payload)
+                # Trata a requisição em uma nova thread
+                thread = threading.Thread(target=self.handle_client, args=(client_socket,))
+                thread.start()
+
+    def handle_client(self, client_socket):
+        try:
+            request = client_socket.recv(self.data_payload).decode('utf-8')
+            request_line = request.splitlines()[0]
+            method, path, _ = request_line.split()
+
+            # Obter o manipulador adequado com base na rota
+            handler = route_request(method, path)
+            handler(request, client_socket)
+        except Exception as e:
+            print("Erro ao processar a requisição:", e)
+            from server.controllers.request_handler import handle_server_error
+            handle_server_error(client_socket)
