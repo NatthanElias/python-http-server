@@ -231,7 +231,7 @@ Uploads a new file to the server. Requires authorization.
 - `text/plain`
 - `text/html`
 
-### Testing Steps
+### Testing Steps (Suggested)
 
 1. **Login to Obtain Session Key**
 
