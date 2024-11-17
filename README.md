@@ -49,50 +49,50 @@ You can test the server using tools like **Postman** or **Insomnia**. A Postman 
 
 ### Available Endpoints
 
-#### **1. GET `/arquivos`**
+#### 1. GET `/arquivos`
 
 Retrieves a list of all stored file names.
 
-##### Parameters
+**Parameters:** None.
 
-None.
-
-##### Status Codes
+**Status Codes:**
 
 | Status Code                   | Description                                  |
 |-------------------------------|----------------------------------------------|
 | **200 OK**                    | Successfully retrieved the list of files.    |
 | **500 Internal Server Error** | Server encountered an unexpected condition.  |
 
-##### Response Examples
+**Response Examples:**
 
-- **Success (200 OK)**
+- Success (``200 OK``)
 
-  **JSON:**
-
+  ```json
   {
     "arquivos": ["file1.txt", "file2.txt"]
   }
+  ```
 
-- **No Files Available**
+- No Files Available
 
-  **JSON:**
-
+  ```json
   {
     "mensagem": "Nenhum arquivo armazenado."
   }
+  ```
 
-#### **2. GET `/arquivos/{filename}`**
+ 
+
+#### 2. GET `/arquivos/{filename}`
 
 Retrieves the content of the specified file.
 
-##### Parameters
+**Parameters:**
 
 | Name       | Type   | In   | Description                                 |
 |------------|--------|------|---------------------------------------------|
 | `filename` | string | path | Specifies the name of the file to retrieve. |
 
-##### Status Codes
+**Status Codes:**
 
 | Status Code                   | Description                                     |
 |-------------------------------|-------------------------------------------------|
@@ -100,42 +100,46 @@ Retrieves the content of the specified file.
 | **404 Not Found**             | The specified file does not exist.              |
 | **500 Internal Server Error** | Server encountered an unexpected condition.     |
 
-##### Response Examples
+**Response Examples:**
 
-- **Success (200 OK)**
+- Success (``200 OK``)
 
   The response body will contain the content of the file.
 
   This is the content of the file.
 
-- **File Not Found (404 Not Found)**
+- File Not Found (`404 Not Found`)
 
-  **JSON:**
+  ```json
+    {
+        "error": "Arquivo não encontrado"
+    }
+  ```
 
-  {
-    "error": "Arquivo não encontrado"
-  }
+  
 
-#### **3. POST `/login`**
+#### 3. POST `/login`
 
 Authenticates the user and returns a session key for authorization.
 
-##### Request Headers
+**Request Headers:**
 
 | Name           | Type   | In     | Description                 |
 |----------------|--------|--------|-----------------------------|
 | `Content-Type` | string | header | Must be `application/json`. |
 
-##### Request Body
+**Request Body:**
 
-**JSON:**
+```json
+    {
+        "username": "admin",
+        "password": "senha123"
+    }
+```
 
-{
-  "username": "admin",
-  "password": "senha123"
-}
 
-##### Status Codes
+
+**Status Codes:**
 
 | Status Code                   | Description                                         |
 |-------------------------------|-----------------------------------------------------|
@@ -143,46 +147,52 @@ Authenticates the user and returns a session key for authorization.
 | **403 Forbidden**             | Authentication failed; invalid credentials.         |
 | **500 Internal Server Error** | Server encountered an unexpected condition.         |
 
-##### Response Examples
+**Response Examples:**
 
-- **Success (200 OK)**
+- Success (``200 OK``)
 
-  **JSON:**
+  ```json
+    {
+        "key": "sessionkey123"
+    }
+  ```
 
-  {
-    "key": "sessionkey123"
-  }
+  
 
-- **Invalid Credentials (403 Forbidden)**
+- Invalid Credentials (``403 Forbidden``)
 
-  **JSON:**
+  ```json
+    {
+        "error": "Credenciais inválidas"
+    }
+  ```
 
-  {
-    "error": "Credenciais inválidas"
-  }
+  
 
-#### **4. POST `/arquivos`**
+#### 4. POST `/arquivos`
 
 Uploads a new file to the server. Requires authorization.
 
-##### Request Headers
+**Request Headers:**
 
 | Name            | Type   | In     | Description                                      |
 |-----------------|--------|--------|--------------------------------------------------|
 | `Content-Type`  | string | header | Must be `application/json`.                      |
 | `Authorization` | string | header | Session key obtained from the `/login` endpoint. |
 
-##### Request Body
+**Request Body:**
 
-**JSON:**
+```json
+    {
+        "nome": "newfile.txt",
+        "conteudo": "This is the content of the new file.",
+        "tipo": "text/plain"
+    }
+```
 
-{
-  "nome": "newfile.txt",
-  "conteudo": "This is the content of the new file.",
-  "tipo": "text/plain"
-}
 
-##### Status Codes
+
+**Status Codes:**
 
 | Status Code                     | Description                                                |
 |---------------------------------|------------------------------------------------------------|
@@ -192,41 +202,49 @@ Uploads a new file to the server. Requires authorization.
 | **415 Unsupported Media Type**  | The specified file type is not supported.                  |
 | **500 Internal Server Error**   | Server encountered an unexpected condition.                |
 
-##### Response Examples
+**Response Examples:**
 
-- **Success (201 Created)**
+- Success (``201 Created``)
 
-  **JSON:**
-
-  {
+  ```json
+    {
     "message": "Arquivo criado/atualizado com sucesso"
-  }
+    }
+  ```
 
-- **Missing Fields (400 Bad Request)**
+  
 
-  **JSON:**
+- Missing Fields (``400 Bad Request``)
 
-  {
-    "error": "Campos obrigatórios faltando no corpo da requisição"
-  }
+  ```json
+    {
+        "error": "Campos obrigatórios faltando no corpo da requisição"
+    }
+  ```
 
-- **Unauthorized (401 Unauthorized)**
+  
 
-  **JSON:**
+- Unauthorized (``401 Unauthorized``)
 
-  {
-    "error": "Não autorizado"
-  }
+  ```json
+    {
+        "error": "Não autorizado"
+    }
+  ```
 
-- **Unsupported Media Type (415 Unsupported Media Type)**
+  
 
-  **JSON:**
+- Unsupported Media Type (`415 Unsupported Media Type`)
 
-  {
-    "error": "Tipo MIME 'application/xml' não suportado"
-  }
+  ```json
+    {
+        "error": "Tipo MIME 'application/xml' não suportado"
+    }
+  ```
 
-#### **Supported MIME Types**
+  
+
+**Supported MIME Types:**
 
 - `text/plain`
 - `text/html`
