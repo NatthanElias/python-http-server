@@ -5,4 +5,4 @@ class File:
         self.content = content
         self.type = type
 
-        # validar tipo (MIME types)
+        # Validação do tipo (MIME types) está sendo feita na requisição POST

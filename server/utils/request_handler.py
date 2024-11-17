@@ -1,6 +1,6 @@
 import json
 from server.models.file import File
-from server.controllers.authentication import authenticate, validate_session_key
+from server.utils.authentication import authenticate, validate_session_key
 
 # Simulando armazenamento de arquivos em memória
 file_storage = {
@@ -111,6 +111,7 @@ def handle_file_upload(request, client_socket):
         # Extrai os headers e o corpo da requisição
         headers_part, body = request.split("\r\n\r\n", 1)
         headers = parse_headers(headers_part)
+        
         # Verifica a autorização
         auth_key = headers.get("Authorization")
         if not validate_session_key(auth_key):
@@ -124,6 +125,21 @@ def handle_file_upload(request, client_socket):
             client_socket.close()
             print("Acesso não autorizado, chave de sessão inválida.")
             return
+
+        # Verifica se todos os campos estão presentes
+        campos_necessarios = ['nome', 'conteudo', 'tipo']
+        if not all(campo in body_json for campo in campos_necessarios):
+            # Retorna erro 400 Bad Request
+            response = (
+                "HTTP/1.1 400 Bad Request\r\n"
+                "Content-Type: text/plain\r\n"
+                "Connection: close\r\n\r\n"
+                "Erro: Campos obrigatórios faltando no corpo da requisição"
+            )
+            client_socket.send(response.encode('utf-8'))
+            client_socket.close()
+            return
+
         # Processa o corpo da requisição
         body_json = json.loads(body)
         name = body_json.get("nome")

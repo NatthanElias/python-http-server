@@ -1,9 +1,7 @@
-from server.controllers.request_handler import (
-    handle_get_request,
-    handle_post_request,
-    handle_login,
-    handle_not_found
-)
+from server.handlers.handle_get_request import handle_get_request
+from server.handlers.handle_post_request import handle_post_request
+from server.handlers.handle_login import handle_login
+from server.handlers.handle_not_found import handle_not_found
 
 def route_request(method, path):
     if method == 'GET' and path.startswith('/arquivos/'):
