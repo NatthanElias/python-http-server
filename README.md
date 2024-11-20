@@ -287,11 +287,9 @@ To validate the server's ability to handle multiple clients simultaneously, a mu
 1. **Ensure the Server is Running**
 
    - Start the server by running:
-
-     bash
-    ```bash
-    python app.py
-    ```
+      ```bash
+      python app.py
+      ```
    - The server should be listening on `localhost` at port `8080`.
 
 2. **Run the Multithreading Test Script**
@@ -299,10 +297,9 @@ To validate the server's ability to handle multiple clients simultaneously, a mu
    - Open a new terminal window.
    - Navigate to the project directory.
    - Execute the script:
-
-     ```bash
-     python multithreaded_client.py
-     ```
+      ```bash
+      python multithreaded_client.py
+      ```
 3. **Understand the Test Script Behavior**
 
    - The script creates multiple threads (adjustable via `num_threads` variable).
