@@ -289,30 +289,21 @@ To validate the server's ability to handle multiple clients simultaneously, a mu
    - Start the server by running:
 
      bash
-
-     python app.py
-
+    ```bash
+    python app.py
+    ```
    - The server should be listening on `localhost` at port `8080`.
 
-2. **Install Required Dependencies**
-
-   - The test script requires the `requests` library. Install it using:
-
-     bash
-
-     pip install requests
-
-3. **Run the Multithreading Test Script**
+2. **Run the Multithreading Test Script**
 
    - Open a new terminal window.
    - Navigate to the project directory.
    - Execute the script:
 
-     bash
-
+     ```bash
      python multithreaded_client.py
-
-4. **Understand the Test Script Behavior**
+     ```
+3. **Understand the Test Script Behavior**
 
    - The script creates multiple threads (adjustable via `num_threads` variable).
    - Each thread performs the following actions:
@@ -321,17 +312,17 @@ To validate the server's ability to handle multiple clients simultaneously, a mu
      - Sends a **GET** request to retrieve the file it just created.
    - Outputs the status of each operation to the console.
 
-5. **Observe Server Logs**
+4. **Observe Server Logs**
 
    - Monitor the server's console output to see how it handles multiple simultaneous connections.
    - Verify that the server processes all requests correctly without errors.
 
-6. **Modify the Number of Threads (Optional)**
+5. **Modify the Number of Threads (Optional)**
 
    - You can increase or decrease the number of threads by changing the `num_threads` variable in `multithreaded_client.py`.
    - This allows you to test the server under different levels of load.
 
-7. **Verify Data Integrity**
+6. **Verify Data Integrity**
 
    - After the test completes, use the **GET** `/arquivos` endpoint to list all files.
    - Confirm that all files created by the threads are present and contain the correct content.
