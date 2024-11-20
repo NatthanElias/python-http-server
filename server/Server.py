@@ -27,7 +27,7 @@ class Server:
         sock = self.create_socket('TCP')
         if sock:
             self.bind_socket(sock)
-            sock.listen(5)
+            sock.listen(50)
             print("Servidor está escutando...")
 
             while True:
