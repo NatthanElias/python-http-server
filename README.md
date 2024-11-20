@@ -1,6 +1,6 @@
 # Python HTTP Server
 
-This project is a simple HTTP Server implemented in Python for Distributed Systems class. With was built from scratch using Python. It handles HTTP GET and POST requests, includes basic user authentication, and manage files storage. The server is capable of handling multiple clients simultaneously through multithreading.
+This project is a simple HTTP Server implemented in Python for Distributed Systems class. It was built from scratch using Python. It handles HTTP GET and POST requests, includes basic user authentication, and manage files storage. The server is capable of handling multiple clients simultaneously through multithreading.
 
 ## Project Structure
 
@@ -275,6 +275,64 @@ Uploads a new file to the server. Requires authorization.
 5. **Error Handling**
 
    - Test the server's responses to invalid inputs, missing headers, or unauthorized access by modifying the requests accordingly.
+
+### Testing Multithreading with `multithreaded_client.py`
+
+To validate the server's ability to handle multiple clients simultaneously, a multithreaded test script `multithreaded_client.py` is provided. This script simulates multiple clients connecting to the server at the same time.
+
+#### Steps to Run the Multithreading Test
+
+1. **Ensure the Server is Running**
+
+   - Start the server by running:
+
+     bash
+
+     python app.py
+
+   - The server should be listening on `localhost` at port `8080`.
+
+2. **Install Required Dependencies**
+
+   - The test script requires the `requests` library. Install it using:
+
+     bash
+
+     pip install requests
+
+3. **Run the Multithreading Test Script**
+
+   - Open a new terminal window.
+   - Navigate to the project directory.
+   - Execute the script:
+
+     bash
+
+     python multithreaded_client.py
+
+4. **Understand the Test Script Behavior**
+
+   - The script creates multiple threads (adjustable via `num_threads` variable).
+   - Each thread performs the following actions:
+     - Logs in to obtain a session key.
+     - Sends a **POST** request to `/arquivos` to create a new file unique to the thread.
+     - Sends a **GET** request to retrieve the file it just created.
+   - Outputs the status of each operation to the console.
+
+5. **Observe Server Logs**
+
+   - Monitor the server's console output to see how it handles multiple simultaneous connections.
+   - Verify that the server processes all requests correctly without errors.
+
+6. **Modify the Number of Threads (Optional)**
+
+   - You can increase or decrease the number of threads by changing the `num_threads` variable in `multithreaded_client.py`.
+   - This allows you to test the server under different levels of load.
+
+7. **Verify Data Integrity**
+
+   - After the test completes, use the **GET** `/arquivos` endpoint to list all files.
+   - Confirm that all files created by the threads are present and contain the correct content.
 
 ## Developers
 
