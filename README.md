@@ -25,6 +25,8 @@ This project is a simple HTTP Server implemented in Python for Distributed Syste
     - **handle_server_error.py**: Handles server errors (500 errors).
   - **server.py**: Sets up the server socket, listens for connections, and delegates requests.
   - **routes.py**: Defines URL patterns and maps them to handler functions.
+- **tests/**: Folder that contains tests scripts.
+  - **multithreaded_client.py**: Script that tests multithreading.
 - **postman_collection/**: Contains the Postman collection for testing the API endpoints.
   - **HTTP_Server_Postman_Collection.json**: Postman collection file with predefined requests.
 
