@@ -1,7 +1,6 @@
 from server.models.storage import file_storage
 from server.handlers.handle_server_error import handle_server_error
 from server.utils.response_helpers import gerar_resposta_http
-import socket
 
 def handle_get_request(request, client_socket):
     try:
